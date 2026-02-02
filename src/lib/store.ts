@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export interface User {
   id: string;
@@ -42,7 +42,7 @@ export interface Board {
 
 export interface ModalState {
   isOpen: boolean;
-  type?: 'card' | 'column' | 'delete-card' | 'delete-column' | 'delete-board';
+  type?: "card" | "column" | "delete-card" | "delete-column" | "delete-board";
   data?: Card | Column | Board | null;
 }
 
@@ -86,7 +86,10 @@ interface KanbanStore {
   modal: ModalState;
   openCardModal: (card?: Card) => void;
   openColumnModal: (column?: Column) => void;
-  openDeleteModal: (type: 'card' | 'column' | 'board', data: Card | Column | Board) => void;
+  openDeleteModal: (
+    type: "card" | "column" | "board",
+    data: Card | Column | Board,
+  ) => void;
   closeModal: () => void;
 
   // Filters
@@ -101,92 +104,92 @@ interface KanbanStore {
 }
 
 const MOCK_USERS: User[] = [
-  { id: '1', name: 'Alice Johnson', initials: 'AJ', color: '#3B82F6' },
-  { id: '2', name: 'Bob Smith', initials: 'BS', color: '#EF4444' },
-  { id: '3', name: 'Carol White', initials: 'CW', color: '#10B981' },
-  { id: '4', name: 'David Brown', initials: 'DB', color: '#F59E0B' },
+  { id: "1", name: "Alice Johnson", initials: "AJ", color: "#3B82F6" },
+  { id: "2", name: "Bob Smith", initials: "BS", color: "#EF4444" },
+  { id: "3", name: "Carol White", initials: "CW", color: "#10B981" },
+  { id: "4", name: "David Brown", initials: "DB", color: "#F59E0B" },
 ];
 
 const INITIAL_STATE = {
   boards: [
     {
-      id: '1',
-      title: 'Web App Project',
-      description: 'Frontend development project',
+      id: "1",
+      title: "Web App Project",
+      description: "Frontend development project",
       createdAt: new Date().toISOString(),
     },
   ],
   columns: [
-    { id: 'col-1', title: 'To Do', boardId: '1', order: 0 },
-    { id: 'col-2', title: 'In Progress', boardId: '1', order: 1 },
-    { id: 'col-3', title: 'Review', boardId: '1', order: 2 },
-    { id: 'col-4', title: 'Done', boardId: '1', order: 3 },
+    { id: "col-1", title: "To Do", boardId: "1", order: 0 },
+    { id: "col-2", title: "In Progress", boardId: "1", order: 1 },
+    { id: "col-3", title: "Review", boardId: "1", order: 2 },
+    { id: "col-4", title: "Done", boardId: "1", order: 3 },
   ],
   cards: [
     {
-      id: 'card-1',
-      title: 'Setup project repository',
-      description: 'Initialize Git repo and setup CI/CD',
-      columnId: 'col-1',
-      boardId: '1',
-      assignees: ['1'],
-      labels: ['feature'],
+      id: "card-1",
+      title: "Setup project repository",
+      description: "Initialize Git repo and setup CI/CD",
+      columnId: "col-1",
+      boardId: "1",
+      assignees: ["1"],
+      labels: ["feature"],
       order: 0,
     },
     {
-      id: 'card-2',
-      title: 'Design database schema',
-      description: 'Plan and design database architecture',
-      columnId: 'col-1',
-      boardId: '1',
-      assignees: ['2', '3'],
-      labels: ['backend'],
+      id: "card-2",
+      title: "Design database schema",
+      description: "Plan and design database architecture",
+      columnId: "col-1",
+      boardId: "1",
+      assignees: ["2", "3"],
+      labels: ["backend"],
       order: 1,
     },
     {
-      id: 'card-3',
-      title: 'Create UI mockups',
-      description: 'Design UI components and layouts',
-      columnId: 'col-2',
-      boardId: '1',
-      assignees: ['4'],
-      labels: ['design'],
+      id: "card-3",
+      title: "Create UI mockups",
+      description: "Design UI components and layouts",
+      columnId: "col-2",
+      boardId: "1",
+      assignees: ["4"],
+      labels: ["design"],
       order: 0,
     },
     {
-      id: 'card-4',
-      title: 'Implement authentication',
-      description: 'Setup user authentication system',
-      columnId: 'col-3',
-      boardId: '1',
-      assignees: ['2'],
-      labels: ['feature', 'backend'],
-      dueDate: '2024-02-15',
+      id: "card-4",
+      title: "Implement authentication",
+      description: "Setup user authentication system",
+      columnId: "col-3",
+      boardId: "1",
+      assignees: ["2"],
+      labels: ["feature", "backend"],
+      dueDate: "2024-02-15",
       order: 0,
     },
     {
-      id: 'card-5',
-      title: 'Write API documentation',
-      description: 'Document all API endpoints',
-      columnId: 'col-4',
-      boardId: '1',
-      assignees: ['1'],
-      labels: ['documentation'],
+      id: "card-5",
+      title: "Write API documentation",
+      description: "Document all API endpoints",
+      columnId: "col-4",
+      boardId: "1",
+      assignees: ["1"],
+      labels: ["documentation"],
       order: 0,
     },
   ],
   labels: [
-    { id: 'label-1', name: 'Feature', color: '#3B82F6' },
-    { id: 'label-2', name: 'Bug', color: '#EF4444' },
-    { id: 'label-3', name: 'Backend', color: '#8B5CF6' },
-    { id: 'label-4', name: 'Frontend', color: '#EC4899' },
-    { id: 'label-5', name: 'Design', color: '#F59E0B' },
-    { id: 'label-6', name: 'Documentation', color: '#10B981' },
+    { id: "label-1", name: "Feature", color: "#3B82F6" },
+    { id: "label-2", name: "Bug", color: "#EF4444" },
+    { id: "label-3", name: "Backend", color: "#8B5CF6" },
+    { id: "label-4", name: "Frontend", color: "#EC4899" },
+    { id: "label-5", name: "Design", color: "#F59E0B" },
+    { id: "label-6", name: "Documentation", color: "#10B981" },
   ],
   users: MOCK_USERS,
-  currentBoardId: '1',
+  currentBoardId: "1",
   modal: { isOpen: false },
-  filters: { searchQuery: '', selectedLabels: [], selectedAssignees: [] },
+  filters: { searchQuery: "", selectedLabels: [], selectedAssignees: [] },
 };
 
 export const useKanbanStore = create<KanbanStore>()(
@@ -222,7 +225,9 @@ export const useKanbanStore = create<KanbanStore>()(
         })),
       updateColumn: (id, title) =>
         set((state) => ({
-          columns: state.columns.map((c) => (c.id === id ? { ...c, title } : c)),
+          columns: state.columns.map((c) =>
+            c.id === id ? { ...c, title } : c,
+          ),
         })),
       reorderColumns: (columns) =>
         set(() => ({
@@ -236,7 +241,9 @@ export const useKanbanStore = create<KanbanStore>()(
         })),
       updateCard: (id, updates) =>
         set((state) => ({
-          cards: state.cards.map((c) => (c.id === id ? { ...c, ...updates } : c)),
+          cards: state.cards.map((c) =>
+            c.id === id ? { ...c, ...updates } : c,
+          ),
         })),
       deleteCard: (id) =>
         set((state) => ({
@@ -248,11 +255,13 @@ export const useKanbanStore = create<KanbanStore>()(
           if (!card) return state;
 
           const oldColumnCards = state.cards.filter(
-            (c) => c.columnId === card.columnId && c.id !== cardId
+            (c) => c.columnId === card.columnId && c.id !== cardId,
           );
-          const newColumnCards = state.cards.filter((c) => c.columnId === columnId);
+          const newColumnCards = state.cards.filter(
+            (c) => c.columnId === columnId,
+          );
 
-          let updatedCards = state.cards.map((c) => {
+          const updatedCards = state.cards.map((c) => {
             if (c.id === cardId) {
               return { ...c, columnId, order };
             }
@@ -290,7 +299,7 @@ export const useKanbanStore = create<KanbanStore>()(
         set({
           modal: {
             isOpen: true,
-            type: 'card',
+            type: "card",
             data: card || null,
           },
         }),
@@ -298,7 +307,7 @@ export const useKanbanStore = create<KanbanStore>()(
         set({
           modal: {
             isOpen: true,
-            type: 'column',
+            type: "column",
             data: column || null,
           },
         }),
@@ -306,7 +315,7 @@ export const useKanbanStore = create<KanbanStore>()(
         set({
           modal: {
             isOpen: true,
-            type: `delete-${type}` as any,
+            type: `delete-${type}` as ModalState["type"],
             data,
           },
         }),
@@ -330,14 +339,18 @@ export const useKanbanStore = create<KanbanStore>()(
         })),
       clearFilters: () =>
         set((state) => ({
-          filters: { searchQuery: '', selectedLabels: [], selectedAssignees: [] },
+          filters: {
+            searchQuery: "",
+            selectedLabels: [],
+            selectedAssignees: [],
+          },
         })),
 
       // Hydration
       hydrate: () => get(),
     }),
     {
-      name: 'kanban-store',
-    }
-  )
+      name: "kanban-store",
+    },
+  ),
 );

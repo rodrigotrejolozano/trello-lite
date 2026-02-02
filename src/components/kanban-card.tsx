@@ -22,24 +22,32 @@ export function KanbanCard({ card }: { card: CardType }) {
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
+    cursor: "grab",
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className="outline-none"
+    >
       <KanbanCardContent card={card} />
     </div>
   );
 }
 
 export function KanbanCardContent({ card }: { card: CardType }) {
-  const { users, labels, openCardModal } = useKanbanStore();
-
+  const openCardModal = useKanbanStore((state) => state.openCardModal);
+  const labels = useKanbanStore((state) => state.labels);
+  const users = useKanbanStore((state) => state.users);
   const cardLabels = labels.filter((l) => card.labels.includes(l.id));
   const cardAssignees = users.filter((u) => card.assignees.includes(u.id));
 
   return (
     <Card
-      className="cursor-grab active:cursor-grabbing hover:shadow-md transition-shadow bg-card"
+      className="cursor-pointer active:cursor-grabbing hover:shadow-md hover:border-2 hover:border-neutral-400 transition-shadow bg-card"
       onClick={() => openCardModal(card)}
     >
       <div className="p-3 space-y-3">

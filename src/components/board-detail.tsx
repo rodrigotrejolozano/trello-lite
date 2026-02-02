@@ -18,8 +18,12 @@ import {
   DragStartEvent,
   closestCorners,
   DragOverlay,
+  useSensor,
+  useSensors,
+  PointerSensor,
+  KeyboardSensor,
 } from "@dnd-kit/core";
-import { arrayMove } from "@dnd-kit/sortable";
+import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { KanbanCardContent } from "./kanban-card";
 
 interface BoardDetailProps {
@@ -42,6 +46,17 @@ export function BoardDetail({ boardId }: BoardDetailProps) {
 
   const [activeDragId, setActiveDragId] = useState<string | null>(null);
   const mounted = useMounted();
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
 
   useEffect(() => {
     setCurrentBoard(boardId);
@@ -185,6 +200,7 @@ export function BoardDetail({ boardId }: BoardDetailProps) {
 
   return (
     <DndContext
+      sensors={sensors}
       collisionDetection={closestCorners}
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
