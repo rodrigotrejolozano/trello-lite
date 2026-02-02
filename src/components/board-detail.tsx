@@ -5,6 +5,9 @@ import { useKanbanStore } from "@/lib/store";
 import { BoardHeader } from "./board-header";
 import { KanbanColumn } from "./kanban-column";
 import { FilterSidebar } from "./filter-sidebar";
+import { CardModal } from "./card-modal";
+import { ColumnModal } from "./column-modal";
+import { DeleteConfirmationModal } from "./delete-confirmation-modal";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
@@ -14,7 +17,10 @@ import {
   DragOverEvent,
   DragStartEvent,
   closestCorners,
+  DragOverlay,
 } from "@dnd-kit/core";
+import { arrayMove } from "@dnd-kit/sortable";
+import { KanbanCardContent } from "./kanban-card";
 
 interface BoardDetailProps {
   boardId: string;
@@ -27,6 +33,7 @@ export function BoardDetail({ boardId }: BoardDetailProps) {
     cards,
     addColumn,
     moveCard,
+    reorderCards,
     setCurrentBoard,
     openColumnModal,
     filters,
@@ -79,6 +86,11 @@ export function BoardDetail({ boardId }: BoardDetailProps) {
     });
   }, [boardCards, filters]);
 
+  const activeCard = useMemo(
+    () => boardCards.find((c) => c.id === activeDragId),
+    [boardCards, activeDragId],
+  );
+
   const handleAddColumn = () => {
     const newColumn = {
       id: uuidv4(),
@@ -100,29 +112,66 @@ export function BoardDetail({ boardId }: BoardDetailProps) {
     const { active, over } = event;
     if (!over) return;
 
-    const activeCard = boardCards.find((c) => c.id === active.id);
+    const activeId = active.id;
+    const overId = over.id;
+
+    if (activeId === overId) return;
+
+    if (activeId === overId) return;
+
+    // Find the cards
+    const activeCard = boardCards.find((c) => c.id === activeId);
     if (!activeCard) return;
 
-    const overColumn = boardColumns.find((c) => c.id === over.id);
-    const overCard = boardCards.find((c) => c.id === over.id);
+    const overCard = boardCards.find((c) => c.id === overId);
+    const overColumn = boardColumns.find((c) => c.id === overId);
 
-    const targetColumnId = overColumn?.id || overCard?.columnId;
-    if (!targetColumnId) return;
-
-    const targetColumnCards = boardCards
-      .filter((c) => c.columnId === targetColumnId)
-      .sort((a, b) => a.order - b.order);
-
-    let targetOrder = targetColumnCards.length;
-    if (overCard) {
-      targetOrder = overCard.order;
+    // If over a column, move to that column
+    if (overColumn) {
+      if (activeCard.columnId !== overColumn.id) {
+        moveCard(activeId as string, overColumn.id, 0); // Add to top or calculate position?
+      }
+      return;
     }
 
-    moveCard(active.id as string, targetColumnId, targetOrder);
+    // If over another card
+    if (overCard && activeCard.columnId !== overCard.columnId) {
+      moveCard(activeId as string, overCard.columnId, overCard.order);
+    }
   };
 
-  const handleDragEnd = () => {
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
     setActiveDragId(null);
+
+    if (!over) return;
+
+    const activeId = active.id as string;
+    const overId = over.id as string;
+
+    if (activeId === overId) return;
+
+    const activeCard = boardCards.find((c) => c.id === activeId);
+    const overCard = boardCards.find((c) => c.id === overId);
+
+    if (!activeCard || !overCard) return;
+
+    // Reordering in the same column
+    if (activeCard.columnId === overCard.columnId) {
+      const columnCards = boardCards
+        .filter((c) => c.columnId === activeCard.columnId)
+        .sort((a, b) => a.order - b.order);
+
+      const oldIndex = columnCards.findIndex((c) => c.id === activeId);
+      const newIndex = columnCards.findIndex((c) => c.id === overId);
+
+      if (oldIndex !== newIndex) {
+        const reorderedCards = arrayMove(columnCards, oldIndex, newIndex).map(
+          (card, index) => ({ ...card, order: index }),
+        );
+        reorderCards(activeCard.columnId, reorderedCards);
+      }
+    }
   };
   if (!mounted) {
     return (
@@ -143,6 +192,9 @@ export function BoardDetail({ boardId }: BoardDetailProps) {
     >
       <div className="min-h-screen bg-background">
         {board && <BoardHeader board={board} />}
+        <CardModal />
+        <ColumnModal />
+        <DeleteConfirmationModal />
 
         {/* Filter Bar */}
         <div className="border-b border-border bg-background sticky top-16 z-30">
@@ -181,6 +233,9 @@ export function BoardDetail({ boardId }: BoardDetailProps) {
             </div>
           </div>
         </div>
+        <DragOverlay>
+          {activeCard ? <KanbanCardContent card={activeCard} /> : null}
+        </DragOverlay>
       </div>
     </DndContext>
   );
