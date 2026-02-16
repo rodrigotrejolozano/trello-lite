@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Board, useKanbanStore } from "@/lib/store";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, Download } from "lucide-react";
+import { ChevronLeft, Download, Edit } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -53,16 +53,20 @@ export function BoardHeader({ board, onExport }: BoardHeaderProps) {
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link href="/">
-            <Button variant="ghost" size="sm" className="gap-2">
+            <Button variant="ghost" size="sm" className="gap-2 cursor-pointer">
               <ChevronLeft className="h-4 w-4" />
               Volver
             </Button>
           </Link>
           <div
-            className="cursor-pointer hover:bg-muted p-1 rounded-md transition-colors"
+            className="
+            gap-2 cursor-pointer hover:bg-muted p-1 rounded-md transition-colors"
             onClick={() => openBoardModal(board)}
           >
-            <h1 className="text-2xl font-bold">{board.title}</h1>
+            <div className="flex items-center gap-2">
+              <h1 className="text-2xl font-bold">{board.title}</h1>
+              <Edit className="h-5 w-5" />
+            </div>
             <p className="text-sm text-muted-foreground">{board.description}</p>
           </div>
         </div>

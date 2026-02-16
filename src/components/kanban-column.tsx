@@ -57,17 +57,20 @@ export function KanbanColumn({ column, cards }: KanbanColumnProps) {
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="sm">
+            <Button className="cursor-pointer " variant="ghost" size="sm">
               <MoreVertical className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => openColumnModal(column)}>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => openColumnModal(column)}
+            >
               Editar
             </DropdownMenuItem>
             <DropdownMenuItem
+              className="cursor-pointer text-destructive"
               onClick={() => openDeleteModal("column", column)}
-              className="text-destructive"
             >
               Eliminar
             </DropdownMenuItem>
@@ -92,7 +95,7 @@ export function KanbanColumn({ column, cards }: KanbanColumnProps) {
         <Button
           onClick={handleAddCard}
           variant="outline"
-          className="w-full justify-start gap-2 text-muted-foreground bg-transparent"
+          className="w-full cursor-pointer justify-start gap-2 text-muted-foreground bg-transparent"
         >
           <Plus className="h-4 w-4" />
           Añadir Tarjeta

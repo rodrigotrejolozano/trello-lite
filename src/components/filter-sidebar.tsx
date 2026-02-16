@@ -50,7 +50,11 @@ export function FilterSidebar() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2 bg-transparent">
+        <Button
+          variant="outline"
+          size="sm"
+          className="cursor-pointer gap-2 bg-transparent"
+        >
           <Filter className="h-4 w-4" />
           Filtros
           {hasActiveFilters && (

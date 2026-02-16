@@ -114,9 +114,6 @@ export function BoardDetail({ boardId }: BoardDetailProps) {
       order: boardColumns.length,
     };
     addColumn(newColumn);
-    setTimeout(() => {
-      openColumnModal(newColumn);
-    }, 0);
   };
 
   const handleDragStart = (event: DragStartEvent) => {
@@ -219,8 +216,8 @@ export function BoardDetail({ boardId }: BoardDetailProps) {
               {filters.searchQuery ||
               filters.selectedLabels.length > 0 ||
               filters.selectedAssignees.length > 0
-                ? `Showing ${filteredCards.length} card${filteredCards.length !== 1 ? "s" : ""}`
-                : `${boardCards.length} card${boardCards.length !== 1 ? "s" : ""}`}
+                ? `Mostrando ${filteredCards.length} ticket${filteredCards.length !== 1 ? "s" : ""}`
+                : `${boardCards.length} ticket${boardCards.length !== 1 ? "s" : ""}`}
             </div>
             <FilterSidebar />
           </div>

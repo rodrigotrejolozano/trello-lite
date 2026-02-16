@@ -112,18 +112,19 @@ interface KanbanStore {
 }
 
 const MOCK_USERS: User[] = [
-  { id: "1", name: "Alice Johnson", initials: "AJ", color: "#3B82F6" },
-  { id: "2", name: "Bob Smith", initials: "BS", color: "#EF4444" },
-  { id: "3", name: "Carol White", initials: "CW", color: "#10B981" },
-  { id: "4", name: "David Brown", initials: "DB", color: "#F59E0B" },
+  { id: "1", name: "Rodrigo Trejo", initials: "RT", color: "#3B82F6" },
+  { id: "2", name: "Antony Lozano", initials: "AL", color: "#EF4444" },
+  { id: "3", name: "Roro Dev", initials: "RD", color: "#10B981" },
+  { id: "4", name: "John Doe", initials: "JD", color: "#F59E0B" },
 ];
 
 const INITIAL_STATE = {
   boards: [
     {
       id: "1",
-      title: "Proyecto Web App",
-      description: "Proyecto de desarrollo frontend",
+      title: "Proyecto Ejemplo",
+      description:
+        "Proyecto de ejemplo para demostrar el funcionamiento de la aplicación",
       createdAt: new Date().toISOString(),
     },
   ],
