@@ -12,7 +12,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export function ColumnModal() {
+interface IColumnModal {
+  title: string;
+}
+
+export function ColumnModal({ title }: IColumnModal) {
   const { modal, closeModal } = useKanbanStore();
 
   const isOpen = modal.isOpen && modal.type === "column";
@@ -22,7 +26,7 @@ export function ColumnModal() {
     <Dialog open={isOpen} onOpenChange={closeModal}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Column</DialogTitle>
+          <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
 
         {column && <ColumnForm key={column.id} column={column} />}
@@ -36,7 +40,7 @@ function ColumnForm({ column }: { column: Column }) {
   const [columnTitle, setColumnTitle] = useState(column.title);
 
   const handleSave = () => {
-    updateColumn(column.id, columnTitle || "Untitled");
+    updateColumn(column.id, columnTitle || "Sin título");
     closeModal();
   };
 
@@ -47,7 +51,7 @@ function ColumnForm({ column }: { column: Column }) {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <Label>Title</Label>
+        <Label>Título</Label>
         <Input
           value={columnTitle}
           onChange={(e) => setColumnTitle(e.target.value)}
@@ -56,13 +60,13 @@ function ColumnForm({ column }: { column: Column }) {
 
       <div className="flex gap-2 justify-between pt-4">
         <Button variant="destructive" onClick={handleDelete}>
-          Delete Column
+          Eliminar Columna
         </Button>
         <div className="flex gap-2">
           <Button variant="outline" onClick={closeModal}>
-            Cancel
+            Cancelar
           </Button>
-          <Button onClick={handleSave}>Save Changes</Button>
+          <Button onClick={handleSave}>Guardar Cambios</Button>
         </div>
       </div>
     </div>

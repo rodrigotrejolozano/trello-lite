@@ -55,7 +55,7 @@ export function BoardHeader({ board, onExport }: BoardHeaderProps) {
           <Link href="/">
             <Button variant="ghost" size="sm" className="gap-2">
               <ChevronLeft className="h-4 w-4" />
-              Back
+              Volver
             </Button>
           </Link>
           <div
@@ -76,7 +76,7 @@ export function BoardHeader({ board, onExport }: BoardHeaderProps) {
               disabled={isExporting}
             >
               <Download className="h-4 w-4" />
-              {isExporting ? "Exporting..." : "Export"}
+              {isExporting ? "Exportando..." : "Exportar"}
             </Button>
           ) : (
             <DropdownMenu>
@@ -87,15 +87,15 @@ export function BoardHeader({ board, onExport }: BoardHeaderProps) {
                   disabled={isExporting}
                 >
                   <Download className="h-4 w-4" />
-                  {isExporting ? "Exporting..." : "Export"}
+                  {isExporting ? "Exportando..." : "Exportar"}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onClick={handleExportJSON}>
-                  Export as JSON
+                  Exportar como JSON
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleExportCSV}>
-                  Export as CSV
+                  Exportar como CSV
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

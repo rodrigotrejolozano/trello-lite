@@ -79,7 +79,7 @@ export function KanbanCardContent({ card }: { card: CardType }) {
           {card.dueDate && (
             <div className="flex items-center gap-1 text-xs text-muted-foreground">
               <Calendar className="h-3 w-3" />
-              {new Date(card.dueDate).toLocaleDateString("en-US", {
+              {new Date(card.dueDate).toLocaleDateString("es-ES", {
                 month: "short",
                 day: "numeric",
               })}
@@ -93,7 +93,7 @@ export function KanbanCardContent({ card }: { card: CardType }) {
                   key={user.id}
                   className="h-6 w-6 border border-background"
                 >
-                  <AvatarFallback className="text-xs bg-blue-500 text-white">
+                  <AvatarFallback className="text-[10px] bg-blue-500 text-white">
                     {user.initials}
                   </AvatarFallback>
                 </Avatar>

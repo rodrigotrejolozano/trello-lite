@@ -24,10 +24,12 @@ export function BoardModal() {
     <Dialog open={isOpen} onOpenChange={closeModal}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{board ? "Edit Board" : "Create New Board"}</DialogTitle>
+          <DialogTitle>
+            {board ? "Editar Tablero" : "Crear Nuevo Tablero"}
+          </DialogTitle>
         </DialogHeader>
 
-        <BoardForm key={board?.id || "new-board"} board={board} />
+        <BoardForm key={board?.id || "nuevo-tablero"} board={board} />
       </DialogContent>
     </Dialog>
   );
@@ -65,10 +67,10 @@ function BoardForm({ board }: { board: Board | null }) {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <Label htmlFor="board-title">Title</Label>
+        <Label htmlFor="board-title">Título</Label>
         <Input
           id="board-title"
-          placeholder="e.g. Project Alpha"
+          placeholder="p. ej. Proyecto Alfa"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           autoFocus={!board}
@@ -76,10 +78,10 @@ function BoardForm({ board }: { board: Board | null }) {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="board-description">Description</Label>
+        <Label htmlFor="board-description">Descripción</Label>
         <Textarea
           id="board-description"
-          placeholder="What is this board about?"
+          placeholder="¿De qué trata este tablero?"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           className="resize-none"
@@ -89,15 +91,15 @@ function BoardForm({ board }: { board: Board | null }) {
       <div className="flex gap-2 justify-between pt-4">
         {board && (
           <Button variant="destructive" onClick={handleDelete} type="button">
-            Delete Board
+            Eliminar Tablero
           </Button>
         )}
         <div className={`flex gap-2 ${board ? "" : "w-full justify-end"}`}>
           <Button variant="outline" onClick={closeModal} type="button">
-            Cancel
+            Cancelar
           </Button>
           <Button onClick={handleSave} type="button">
-            {board ? "Save Changes" : "Create Board"}
+            {board ? "Guardar Cambios" : "Crear Tablero"}
           </Button>
         </div>
       </div>

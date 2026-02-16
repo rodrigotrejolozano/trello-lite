@@ -109,7 +109,7 @@ export function BoardDetail({ boardId }: BoardDetailProps) {
   const handleAddColumn = () => {
     const newColumn = {
       id: uuidv4(),
-      title: "New Column",
+      title: "Nueva Columna",
       boardId,
       order: boardColumns.length,
     };
@@ -195,7 +195,7 @@ export function BoardDetail({ boardId }: BoardDetailProps) {
   }
 
   if (!board) {
-    return <div className="text-center py-12">Board not found</div>;
+    return <div className="text-center py-12">Tablero no encontrado</div>;
   }
 
   return (
@@ -209,7 +209,7 @@ export function BoardDetail({ boardId }: BoardDetailProps) {
       <div className="min-h-screen bg-background">
         {board && <BoardHeader board={board} />}
         <CardModal />
-        <ColumnModal />
+        <ColumnModal title="Editar Columna" />
         <DeleteConfirmationModal />
 
         {/* Filter Bar */}
@@ -244,7 +244,7 @@ export function BoardDetail({ boardId }: BoardDetailProps) {
                 className="w-full h-150 text-muted-foreground hover:text-foreground hover:bg-muted bg-transparent"
               >
                 <Plus className="h-5 w-5 mr-2" />
-                Add Column
+                Agregar Columna
               </Button>
             </div>
           </div>

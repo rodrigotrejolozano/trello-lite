@@ -1,7 +1,6 @@
 import { BoardDetail } from "@/components/board-detail";
 import { DeleteConfirmationModal } from "@/components/delete-confirmation-modal";
 import { CardModal } from "@/components/card-modal";
-import { ColumnModal } from "@/components/column-modal";
 import { BoardModal } from "@/components/board-modal";
 
 interface BoardPageProps {
@@ -16,7 +15,6 @@ export default async function BoardPage({ params }: BoardPageProps) {
       <BoardDetail boardId={id} />
       <DeleteConfirmationModal />
       <CardModal />
-      <ColumnModal />
       <BoardModal />
     </>
   );

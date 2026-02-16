@@ -1,18 +1,21 @@
-'use client';
+"use client";
 
-import { Column, Card as CardType, useKanbanStore } from '@/lib/store';
-import { KanbanCard } from './kanban-card';
-import { Button } from '@/components/ui/button';
-import { Plus, MoreVertical } from 'lucide-react';
+import { Column, Card as CardType, useKanbanStore } from "@/lib/store";
+import { KanbanCard } from "./kanban-card";
+import { Button } from "@/components/ui/button";
+import { Plus, MoreVertical } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { v4 as uuidv4 } from 'uuid';
-import { useDroppable } from '@dnd-kit/core';
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+} from "@/components/ui/dropdown-menu";
+import { v4 as uuidv4 } from "uuid";
+import { useDroppable } from "@dnd-kit/core";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
 interface KanbanColumnProps {
   column: Column;
@@ -28,8 +31,8 @@ export function KanbanColumn({ column, cards }: KanbanColumnProps) {
   const handleAddCard = () => {
     const newCard: CardType = {
       id: uuidv4(),
-      title: 'New Card',
-      description: '',
+      title: "Nueva Tarjeta",
+      description: "",
       columnId: column.id,
       boardId: column.boardId,
       assignees: [],
@@ -42,7 +45,7 @@ export function KanbanColumn({ column, cards }: KanbanColumnProps) {
   return (
     <div
       ref={setNodeRef}
-      className="bg-muted rounded-lg flex flex-col h-full min-h-[600px] w-[340px] flex-shrink-0"
+      className="bg-muted rounded-lg flex flex-col h-full min-h-[600px] w-[340px] shrink-0"
     >
       {/* Column Header */}
       <div className="flex items-center justify-between p-4 border-b border-border">
@@ -59,12 +62,14 @@ export function KanbanColumn({ column, cards }: KanbanColumnProps) {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => openColumnModal(column)}>Edit</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => openColumnModal(column)}>
+              Editar
+            </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={() => openDeleteModal('column', column)}
+              onClick={() => openDeleteModal("column", column)}
               className="text-destructive"
             >
-              Delete
+              Eliminar
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -72,7 +77,10 @@ export function KanbanColumn({ column, cards }: KanbanColumnProps) {
 
       {/* Cards */}
       <div className="flex-1 overflow-y-auto p-3 space-y-2">
-        <SortableContext items={cards.map((c) => c.id)} strategy={verticalListSortingStrategy}>
+        <SortableContext
+          items={cards.map((c) => c.id)}
+          strategy={verticalListSortingStrategy}
+        >
           {cards.map((card) => (
             <KanbanCard key={card.id} card={card} />
           ))}
@@ -87,7 +95,7 @@ export function KanbanColumn({ column, cards }: KanbanColumnProps) {
           className="w-full justify-start gap-2 text-muted-foreground bg-transparent"
         >
           <Plus className="h-4 w-4" />
-          Add Card
+          Añadir Tarjeta
         </Button>
       </div>
     </div>

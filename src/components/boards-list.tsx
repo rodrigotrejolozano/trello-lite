@@ -32,21 +32,21 @@ export function BoardsList() {
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-4xl font-bold">My Boards</h1>
+        <h1 className="text-4xl font-bold">Mis Tableros</h1>
         <Button onClick={handleCreateBoard} className="gap-2">
           <Plus className="h-4 w-4" />
-          New Board
+          Nuevo Tablero
         </Button>
       </div>
 
       {boards.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-muted-foreground mb-4">
-            No boards yet. Create your first board!
+            Aún no hay tableros. ¡Crea tu primer tablero!
           </p>
           <Button onClick={handleCreateBoard} className="gap-2">
             <Plus className="h-4 w-4" />
-            Create Board
+            Crear Tablero
           </Button>
         </div>
       ) : (

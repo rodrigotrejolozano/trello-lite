@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   AlertDialog,
@@ -8,14 +8,19 @@ import {
   AlertDialogDescription,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { useKanbanStore, Board, Card, Column } from '@/lib/store';
+} from "@/components/ui/alert-dialog";
+import { useKanbanStore, Board, Card, Column } from "@/lib/store";
 
 export function DeleteConfirmationModal() {
-  const { modal, closeModal, deleteBoard, deleteCard, deleteColumn } = useKanbanStore();
+  const { modal, closeModal, deleteBoard, deleteCard, deleteColumn } =
+    useKanbanStore();
 
-  const isOpen = modal.isOpen && modal.type?.startsWith('delete-');
-  const type = modal.type?.replace('delete-', '') as 'board' | 'card' | 'column' | undefined;
+  const isOpen = modal.isOpen && modal.type?.startsWith("delete-");
+  const type = modal.type?.replace("delete-", "") as
+    | "board"
+    | "card"
+    | "column"
+    | undefined;
   const data = modal.data as Board | Card | Column | undefined;
 
   if (!isOpen || !type || !data) {
@@ -24,35 +29,35 @@ export function DeleteConfirmationModal() {
 
   const getTitle = () => {
     switch (type) {
-      case 'board':
-        return 'Delete Board';
-      case 'card':
-        return 'Delete Card';
-      case 'column':
-        return 'Delete Column';
+      case "board":
+        return "Eliminar Tablero";
+      case "card":
+        return "Eliminar Tarjeta";
+      case "column":
+        return "Eliminar Columna";
     }
   };
 
   const getDescription = () => {
     switch (type) {
-      case 'board':
-        return `Are you sure you want to delete "${(data as Board).title}"? This action cannot be undone.`;
-      case 'card':
-        return `Are you sure you want to delete "${(data as Card).title}"? This action cannot be undone.`;
-      case 'column':
-        return `Are you sure you want to delete "${(data as Column).title}"? All cards in this column will also be deleted.`;
+      case "board":
+        return `¿Estás seguro de que quieres eliminar "${(data as Board).title}"? Esta acción no se puede deshacer.`;
+      case "card":
+        return `¿Estás seguro de que quieres eliminar "${(data as Card).title}"? Esta acción no se puede deshacer.`;
+      case "column":
+        return `¿Estás seguro de que quieres eliminar "${(data as Column).title}"? Todas las tarjetas de esta columna también se eliminarán.`;
     }
   };
 
   const handleDelete = () => {
     switch (type) {
-      case 'board':
+      case "board":
         deleteBoard((data as Board).id);
         break;
-      case 'card':
+      case "card":
         deleteCard((data as Card).id);
         break;
-      case 'column':
+      case "column":
         deleteColumn((data as Column).id);
         break;
     }
@@ -67,9 +72,12 @@ export function DeleteConfirmationModal() {
           <AlertDialogDescription>{getDescription()}</AlertDialogDescription>
         </AlertDialogHeader>
         <div className="flex gap-3 justify-end">
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete} className="bg-destructive hover:bg-destructive/90">
-            Delete
+          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+          <AlertDialogAction
+            onClick={handleDelete}
+            className="bg-destructive hover:bg-destructive/90"
+          >
+            Eliminar
           </AlertDialogAction>
         </div>
       </AlertDialogContent>

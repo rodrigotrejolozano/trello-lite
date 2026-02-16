@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { Board } from '@/lib/store';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Trash2 } from 'lucide-react';
+import Link from "next/link";
+import { Board } from "@/lib/store";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Trash2 } from "lucide-react";
 
 interface BoardCardProps {
   board: Board;
@@ -22,7 +22,7 @@ export function BoardCard({ board, onDelete }: BoardCardProps) {
           <p className="text-sm text-muted-foreground">{board.description}</p>
           <div className="flex items-center justify-between">
             <span className="text-xs text-muted-foreground">
-              {new Date(board.createdAt).toLocaleDateString()}
+              {new Date(board.createdAt).toLocaleDateString("es-ES")}
             </span>
             <Button
               variant="ghost"

@@ -4,9 +4,9 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
-  title: "Kanban Board - Task Management",
+  title: "Tablero Kanban - Gestión de Tareas",
   description:
-    "A modern Kanban board for task management with drag and drop, filtering, and collaboration features",
+    "Un tablero Kanban moderno para la gestión de tareas con funciones de arrastrar y soltar, filtrado y colaboración",
   icons: {
     icon: [
       {
@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning>
       <body className={`font-sans antialiased`}>
         <ThemeProvider attribute="class">{children}</ThemeProvider>
       </body>

@@ -122,22 +122,22 @@ const INITIAL_STATE = {
   boards: [
     {
       id: "1",
-      title: "Web App Project",
-      description: "Frontend development project",
+      title: "Proyecto Web App",
+      description: "Proyecto de desarrollo frontend",
       createdAt: new Date().toISOString(),
     },
   ],
   columns: [
-    { id: "col-1", title: "To Do", boardId: "1", order: 0 },
-    { id: "col-2", title: "In Progress", boardId: "1", order: 1 },
-    { id: "col-3", title: "Review", boardId: "1", order: 2 },
-    { id: "col-4", title: "Done", boardId: "1", order: 3 },
+    { id: "col-1", title: "Pendiente", boardId: "1", order: 0 },
+    { id: "col-2", title: "En Progreso", boardId: "1", order: 1 },
+    { id: "col-3", title: "Revisión", boardId: "1", order: 2 },
+    { id: "col-4", title: "Hecho", boardId: "1", order: 3 },
   ],
   cards: [
     {
       id: "card-1",
-      title: "Setup project repository",
-      description: "Initialize Git repo and setup CI/CD",
+      title: "Configurar repositorio del proyecto",
+      description: "Inicializar repositorio Git y configurar CI/CD",
       columnId: "col-1",
       boardId: "1",
       assignees: ["1"],
@@ -146,8 +146,8 @@ const INITIAL_STATE = {
     },
     {
       id: "card-2",
-      title: "Design database schema",
-      description: "Plan and design database architecture",
+      title: "Diseñar esquema de base de datos",
+      description: "Planificar y diseñar la arquitectura de la base de datos",
       columnId: "col-1",
       boardId: "1",
       assignees: ["2", "3"],
@@ -156,8 +156,8 @@ const INITIAL_STATE = {
     },
     {
       id: "card-3",
-      title: "Create UI mockups",
-      description: "Design UI components and layouts",
+      title: "Crear bocetos de la interfaz",
+      description: "Diseñar componentes y diseños de la interfaz",
       columnId: "col-2",
       boardId: "1",
       assignees: ["4"],
@@ -166,8 +166,8 @@ const INITIAL_STATE = {
     },
     {
       id: "card-4",
-      title: "Implement authentication",
-      description: "Setup user authentication system",
+      title: "Implementar autenticación",
+      description: "Configurar el sistema de autenticación de usuarios",
       columnId: "col-3",
       boardId: "1",
       assignees: ["2"],
@@ -177,8 +177,8 @@ const INITIAL_STATE = {
     },
     {
       id: "card-5",
-      title: "Write API documentation",
-      description: "Document all API endpoints",
+      title: "Escribir documentación de la API",
+      description: "Documentar todos los endpoints de la API",
       columnId: "col-4",
       boardId: "1",
       assignees: ["1"],
@@ -187,12 +187,12 @@ const INITIAL_STATE = {
     },
   ],
   labels: [
-    { id: "label-1", name: "Feature", color: "#3B82F6" },
-    { id: "label-2", name: "Bug", color: "#EF4444" },
+    { id: "label-1", name: "Característica", color: "#3B82F6" },
+    { id: "label-2", name: "Error", color: "#EF4444" },
     { id: "label-3", name: "Backend", color: "#8B5CF6" },
     { id: "label-4", name: "Frontend", color: "#EC4899" },
-    { id: "label-5", name: "Design", color: "#F59E0B" },
-    { id: "label-6", name: "Documentation", color: "#10B981" },
+    { id: "label-5", name: "Diseño", color: "#F59E0B" },
+    { id: "label-6", name: "Documentación", color: "#10B981" },
   ],
   users: MOCK_USERS,
   currentBoardId: "1",
@@ -270,9 +270,6 @@ export const useKanbanStore = create<KanbanStore>()(
 
           const oldColumnCards = state.cards.filter(
             (c) => c.columnId === card.columnId && c.id !== cardId,
-          );
-          const newColumnCards = state.cards.filter(
-            (c) => c.columnId === columnId,
           );
 
           const updatedCards = state.cards.map((c) => {
@@ -360,7 +357,7 @@ export const useKanbanStore = create<KanbanStore>()(
           filters: { ...state.filters, selectedAssignees: assignees },
         })),
       clearFilters: () =>
-        set((state) => ({
+        set(() => ({
           filters: {
             searchQuery: "",
             selectedLabels: [],
