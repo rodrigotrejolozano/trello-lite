@@ -237,11 +237,11 @@ export function BoardDetail({ boardId }: BoardDetailProps) {
                   .sort((a, b) => a.order - b.order)}
               />
             ))}
-            <div className="w-[340px] shrink-0">
+            <div className="w-85 shrink-0">
               <Button
                 onClick={handleAddColumn}
                 variant="outline"
-                className="w-full h-[600px] text-muted-foreground hover:text-foreground hover:bg-muted bg-transparent"
+                className="w-full h-150 text-muted-foreground hover:text-foreground hover:bg-muted bg-transparent"
               >
                 <Plus className="h-5 w-5 mr-2" />
                 Add Column

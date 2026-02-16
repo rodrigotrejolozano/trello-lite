@@ -20,7 +20,7 @@ interface BoardHeaderProps {
 }
 
 export function BoardHeader({ board, onExport }: BoardHeaderProps) {
-  const { columns, cards } = useKanbanStore();
+  const { columns, cards, openBoardModal } = useKanbanStore();
   const [isExporting, setIsExporting] = useState(false);
 
   const boardColumns = columns.filter((c) => c.boardId === board.id);
@@ -58,7 +58,10 @@ export function BoardHeader({ board, onExport }: BoardHeaderProps) {
               Back
             </Button>
           </Link>
-          <div>
+          <div
+            className="cursor-pointer hover:bg-muted p-1 rounded-md transition-colors"
+            onClick={() => openBoardModal(board)}
+          >
             <h1 className="text-2xl font-bold">{board.title}</h1>
             <p className="text-sm text-muted-foreground">{board.description}</p>
           </div>

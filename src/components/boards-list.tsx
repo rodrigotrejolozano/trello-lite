@@ -1,14 +1,13 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
-import { useKanbanStore, Board } from "@/lib/store";
+import { useSyncExternalStore } from "react";
+import { useKanbanStore } from "@/lib/store";
 import { BoardCard } from "./board-card";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { v4 as uuidv4 } from "uuid";
 
 export function BoardsList() {
-  const { boards, addBoard, deleteBoard, openDeleteModal } = useKanbanStore();
+  const { boards, openBoardModal, openDeleteModal } = useKanbanStore();
   const mounted = useMounted();
   if (!mounted) {
     return (
@@ -16,13 +15,7 @@ export function BoardsList() {
     );
   }
   const handleCreateBoard = () => {
-    const newBoard: Board = {
-      id: uuidv4(),
-      title: "New Board",
-      description: "Click to edit",
-      createdAt: new Date().toISOString(),
-    };
-    addBoard(newBoard);
+    openBoardModal();
   };
 
   const handleDeleteBoard = (id: string) => {

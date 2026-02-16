@@ -42,7 +42,13 @@ export interface Board {
 
 export interface ModalState {
   isOpen: boolean;
-  type?: "card" | "column" | "delete-card" | "delete-column" | "delete-board";
+  type?:
+    | "card"
+    | "column"
+    | "board"
+    | "delete-card"
+    | "delete-column"
+    | "delete-board";
   data?: Card | Column | Board | null;
 }
 
@@ -57,6 +63,7 @@ interface KanbanStore {
   boards: Board[];
   currentBoardId: string | null;
   addBoard: (board: Board) => void;
+  updateBoard: (id: string, updates: Partial<Board>) => void;
   deleteBoard: (id: string) => void;
   setCurrentBoard: (id: string) => void;
 
@@ -86,6 +93,7 @@ interface KanbanStore {
   modal: ModalState;
   openCardModal: (card?: Card) => void;
   openColumnModal: (column?: Column) => void;
+  openBoardModal: (board?: Board) => void;
   openDeleteModal: (
     type: "card" | "column" | "board",
     data: Card | Column | Board,
@@ -203,6 +211,12 @@ export const useKanbanStore = create<KanbanStore>()(
           boards: [...state.boards, board],
           currentBoardId: board.id,
         })),
+      updateBoard: (id, updates) =>
+        set((state) => ({
+          boards: state.boards.map((b) =>
+            b.id === id ? { ...b, ...updates } : b,
+          ),
+        })),
       deleteBoard: (id) =>
         set((state) => ({
           boards: state.boards.filter((b) => b.id !== id),
@@ -309,6 +323,14 @@ export const useKanbanStore = create<KanbanStore>()(
             isOpen: true,
             type: "column",
             data: column || null,
+          },
+        }),
+      openBoardModal: (board) =>
+        set({
+          modal: {
+            isOpen: true,
+            type: "board",
+            data: board || null,
           },
         }),
       openDeleteModal: (type, data) =>
